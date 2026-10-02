@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>English for Café & Tourism | Cafetería Orgánica Granados</title>
+<style>
+:root {
+  --green:#285b35; --green2:#6c8c6d; --cream:#fbf5e8; --brown:#9a5c30;
+  --gold:#d2a84d; --ink:#263229; --white:#fff; --soft:#eef4ed;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--cream);color:var(--ink)}
+header{padding:68px 20px 54px;text-align:center;color:#fff;background:
+linear-gradient(rgba(28,75,41,.88),rgba(28,75,41,.88)),
+radial-gradient(circle at top right,#86a779,#285b35 65%)}
+.hero{max-width:900px;margin:auto}
+.kicker{text-transform:uppercase;letter-spacing:.15em;font-weight:800;font-size:.78rem;color:#f2d791}
+h1{font-size:clamp(2.2rem,6vw,4.8rem);line-height:1.02;margin:12px 0}
+header p{max-width:760px;margin:10px auto;opacity:.94}
+.toolbar{position:sticky;top:0;z-index:10;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+box-shadow:0 3px 18px rgba(0,0,0,.09);padding:12px}
+.toolbar-inner{max-width:1150px;margin:auto;display:flex;gap:10px;flex-wrap:wrap}
+input,select{padding:12px 14px;border-radius:12px;border:1px solid #d6ddd5;background:white;font-size:.96rem}
+input{flex:1;min-width:220px} select{min-width:240px}
+main{max-width:1150px;margin:auto;padding:36px 18px 80px}
+.intro{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;margin-bottom:36px}
+.stat{background:white;border-radius:16px;padding:18px;box-shadow:0 8px 24px rgba(39,80,47,.08)}
+.stat strong{display:block;color:var(--green);font-size:1.45rem}
+.section{margin:42px 0}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px}
+.section h2{color:var(--green);font-size:1.7rem;margin:0}
+.count{font-size:.85rem;color:#6d766f}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(275px,1fr));gap:14px}
+.card{background:white;border-radius:16px;padding:18px;border-left:5px solid var(--green);
+box-shadow:0 7px 22px rgba(36,78,45,.075);transition:.18s transform}
+.card:hover{transform:translateY(-2px)}
+.en{font-size:1.1rem;font-weight:800;color:var(--green);margin-bottom:5px}
+.es{color:#59645c;margin-bottom:14px}
+.listen{border:0;background:var(--brown);color:#fff;padding:10px 13px;border-radius:10px;font-weight:800;cursor:pointer}
+.listen:hover{filter:brightness(1.07)}
+.listen.playing{background:var(--green)}
+.empty{display:none;text-align:center;background:white;padding:35px;border-radius:18px;color:#6a746c}
+.note{margin-top:35px;padding:20px;border-radius:16px;background:#fff5d8;border-left:5px solid var(--gold)}
+footer{text-align:center;padding:35px 18px;background:#203d27;color:white}
+small{opacity:.8}
+@media(max-width:600px){.toolbar-inner{display:block} input,select{width:100%;margin:4px 0}}
+</style>
+</head>
+<body>
+<header>
+<div class="hero">
+<div class="kicker">Cafetería Orgánica Granados · English Learning Guide</div>
+<h1>English for Café & Tourism</h1>
+<p>Vocabulario práctico en inglés y español para atención al cliente, servicio de mesa, alimentos, café y turismo.</p>
+<p><em>Practical English–Spanish vocabulary for customer service, food, coffee and tourism.</em></p>
+</div>
+</header>
+
+<div class="toolbar">
+  <div class="toolbar-inner">
+    <input id="search" type="search" placeholder="Buscar / Search: café, cuenta, allergies...">
+    <select id="category"><option value="all">Todas las categorías / All categories</option></select>
+  </div>
+</div>
+
+<main>
+  <div class="intro">
+    <div class="stat"><strong id="totalCount">0</strong>palabras y frases / words & phrases</div>
+    <div class="stat"><strong>🔊 Audio</strong>Pronunciación en inglés / English pronunciation</div>
+    <div class="stat"><strong>8+ temas</strong>Organizado para estudiar por situaciones reales</div>
+  </div>
+
+  <div id="content"></div>
+  <div class="empty" id="empty">No encontramos resultados. / No results found.</div>
+
+  <div class="note">
+    <strong>Consejo / Tip:</strong> Escucha una palabra o frase, repítela dos o tres veces y luego intenta decirla sin mirar la pantalla.
+    <br><em>Listen, repeat it two or three times, and then try to say it without looking at the screen.</em>
+  </div>
+</main>
+
+<footer>
+  <strong>Cafetería Orgánica Granados</strong><br>
+  English for Café & Tourism · Pura Vida<br>
+  <small>Guía interactiva de vocabulario / Interactive vocabulary guide</small>
+</footer>
+
+<script>
+const DATA = [{"category": "Atención al cliente / Customer service", "en": "Hello!", "es": "¡Hola!"}, {"category": "Atención al cliente / Customer service", "en": "Good morning!", "es": "¡Buenos días!"}, {"category": "Atención al cliente / Customer service", "en": "Good afternoon!", "es": "¡Buenas tardes!"}, {"category": "Atención al cliente / Customer service", "en": "Welcome!", "es": "¡Bienvenidos!"}, {"category": "Atención al cliente / Customer service", "en": "How can I help you?", "es": "¿Cómo puedo ayudarle?"}, {"category": "Atención al cliente / Customer service", "en": "What would you like?", "es": "¿Qué le gustaría?"}, {"category": "Atención al cliente / Customer service", "en": "Can I take your order?", "es": "¿Puedo tomar su orden?"}, {"category": "Atención al cliente / Customer service", "en": "Is that all?", "es": "¿Eso sería todo?"}, {"category": "Atención al cliente / Customer service", "en": "Anything else?", "es": "¿Algo más?"}, {"category": "Atención al cliente / Customer service", "en": "Here you are.", "es": "Aquí tiene."}, {"category": "Atención al cliente / Customer service", "en": "Thank you.", "es": "Gracias."}, {"category": "Atención al cliente / Customer service", "en": "You're welcome.", "es": "Con mucho gusto."}, {"category": "Atención al cliente / Customer service", "en": "Have a nice day!", "es": "¡Que tenga un buen día!"}, {"category": "Atención al cliente / Customer service", "en": "Please, have a seat.", "es": "Por favor, tome asiento."}, {"category": "Atención al cliente / Customer service", "en": "Here is the menu.", "es": "Aquí está el menú."}, {"category": "Atención al cliente / Customer service", "en": "Enjoy your meal!", "es": "¡Buen provecho!"}, {"category": "Tomar la orden / Taking an order", "en": "Coffee or tea?", "es": "¿Café o té?"}, {"category": "Tomar la orden / Taking an order", "en": "Hot or cold?", "es": "¿Caliente o frío?"}, {"category": "Tomar la orden / Taking an order", "en": "Small, medium or large?", "es": "¿Pequeño, mediano o grande?"}, {"category": "Tomar la orden / Taking an order", "en": "With milk?", "es": "¿Con leche?"}, {"category": "Tomar la orden / Taking an order", "en": "With sugar?", "es": "¿Con azúcar?"}, {"category": "Tomar la orden / Taking an order", "en": "Are you ready to order?", "es": "¿Está listo/a para ordenar?"}, {"category": "Tomar la orden / Taking an order", "en": "What would you like to drink?", "es": "¿Qué le gustaría tomar?"}, {"category": "Tomar la orden / Taking an order", "en": "What would you like to eat?", "es": "¿Qué le gustaría comer?"}, {"category": "Tomar la orden / Taking an order", "en": "Your order will be ready soon.", "es": "Su orden estará lista pronto."}, {"category": "Tomar la orden / Taking an order", "en": "Please wait a moment.", "es": "Espere un momento, por favor."}, {"category": "Tomar la orden / Taking an order", "en": "Would you like anything else?", "es": "¿Desea algo más?"}, {"category": "Tomar la orden / Taking an order", "en": "Would you like the bill?", "es": "¿Desea la cuenta?"}, {"category": "Ingredientes / Ingredients", "en": "Rice", "es": "Arroz"}, {"category": "Ingredientes / Ingredients", "en": "Beans", "es": "Frijoles"}, {"category": "Ingredientes / Ingredients", "en": "Corn", "es": "Maíz"}, {"category": "Ingredientes / Ingredients", "en": "Ripe plantain", "es": "Plátano maduro"}, {"category": "Ingredientes / Ingredients", "en": "Green plantain", "es": "Plátano verde"}, {"category": "Ingredientes / Ingredients", "en": "Cassava / Yucca", "es": "Yuca"}, {"category": "Ingredientes / Ingredients", "en": "Cheese", "es": "Queso"}, {"category": "Ingredientes / Ingredients", "en": "Sour cream", "es": "Natilla"}, {"category": "Ingredientes / Ingredients", "en": "Chicken", "es": "Pollo"}, {"category": "Ingredientes / Ingredients", "en": "Beef", "es": "Carne de res"}, {"category": "Ingredientes / Ingredients", "en": "Pork", "es": "Cerdo"}, {"category": "Ingredientes / Ingredients", "en": "Egg", "es": "Huevo"}, {"category": "Ingredientes / Ingredients", "en": "Avocado", "es": "Aguacate"}, {"category": "Ingredientes / Ingredients", "en": "Tomato", "es": "Tomate"}, {"category": "Ingredientes / Ingredients", "en": "Onion", "es": "Cebolla"}, {"category": "Ingredientes / Ingredients", "en": "Sweet pepper", "es": "Chile dulce"}, {"category": "Ingredientes / Ingredients", "en": "Cilantro", "es": "Culantro"}, {"category": "Ingredientes / Ingredients", "en": "Milk", "es": "Leche"}, {"category": "Ingredientes / Ingredients", "en": "Sugar", "es": "Azúcar"}, {"category": "Ingredientes / Ingredients", "en": "Salt", "es": "Sal"}, {"category": "Ingredientes / Ingredients", "en": "Coffee", "es": "Café"}, {"category": "Ingredientes / Ingredients", "en": "Vegetables", "es": "Vegetales"}, {"category": "Ingredientes / Ingredients", "en": "Bread", "es": "Pan"}, {"category": "Ingredientes / Ingredients", "en": "Butter", "es": "Mantequilla"}, {"category": "Explicar comida / Explaining food", "en": "It is a traditional Costa Rican dish.", "es": "Es un plato tradicional costarricense."}, {"category": "Explicar comida / Explaining food", "en": "It is made with rice and beans.", "es": "Está hecho con arroz y frijoles."}, {"category": "Explicar comida / Explaining food", "en": "It contains chicken, rice and vegetables.", "es": "Contiene pollo, arroz y vegetales."}, {"category": "Explicar comida / Explaining food", "en": "It is served with plantain.", "es": "Se sirve con plátano."}, {"category": "Explicar comida / Explaining food", "en": "This is a typical Costa Rican breakfast.", "es": "Este es un desayuno típico costarricense."}, {"category": "Explicar comida / Explaining food", "en": "It is sweet.", "es": "Es dulce."}, {"category": "Explicar comida / Explaining food", "en": "It is salty.", "es": "Es salado."}, {"category": "Explicar comida / Explaining food", "en": "It is spicy.", "es": "Es picante."}, {"category": "Explicar comida / Explaining food", "en": "It is hot.", "es": "Está caliente."}, {"category": "Explicar comida / Explaining food", "en": "It is cold.", "es": "Está frío."}, {"category": "Explicar comida / Explaining food", "en": "It is vegetarian.", "es": "Es vegetariano."}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "Do you have any allergies?", "es": "¿Tiene alguna alergia?"}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "Are you allergic to anything?", "es": "¿Es alérgico/a a algo?"}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "Does it contain milk?", "es": "¿Contiene leche?"}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "Does it contain gluten?", "es": "¿Contiene gluten?"}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "Does it contain nuts?", "es": "¿Contiene nueces?"}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "It contains dairy.", "es": "Contiene lácteos."}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "It does not contain meat.", "es": "No contiene carne."}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "I'm sorry, we don't have that option.", "es": "Lo siento, no tenemos esa opción."}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "This dish contains eggs.", "es": "Este plato contiene huevo."}, {"category": "Alergias y restricciones / Allergies & dietary restrictions", "en": "This dish is gluten-free.", "es": "Este plato no contiene gluten."}, {"category": "Cuando no entiendo / When I don't understand", "en": "Could you repeat that, please?", "es": "¿Puede repetir eso, por favor?"}, {"category": "Cuando no entiendo / When I don't understand", "en": "Could you speak slowly, please?", "es": "¿Puede hablar más despacio, por favor?"}, {"category": "Cuando no entiendo / When I don't understand", "en": "I don't understand.", "es": "No entiendo."}, {"category": "Cuando no entiendo / When I don't understand", "en": "One moment, please.", "es": "Un momento, por favor."}, {"category": "Cuando no entiendo / When I don't understand", "en": "Let me check.", "es": "Déjeme revisar."}, {"category": "Cuando no entiendo / When I don't understand", "en": "I will ask my coworker.", "es": "Le preguntaré a mi compañero/a."}, {"category": "Cuando no entiendo / When I don't understand", "en": "Thank you for your patience.", "es": "Gracias por su paciencia."}, {"category": "Cuando no entiendo / When I don't understand", "en": "Could you point to it, please?", "es": "¿Puede señalarlo, por favor?"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Menu", "es": "Menú"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Table", "es": "Mesa"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Chair", "es": "Silla"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Cup", "es": "Taza"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Glass", "es": "Vaso"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Spoon", "es": "Cuchara"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Fork", "es": "Tenedor"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Knife", "es": "Cuchillo"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Plate", "es": "Plato"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Napkin", "es": "Servilleta"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Bill / Check", "es": "Cuenta"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Cash", "es": "Efectivo"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Card", "es": "Tarjeta"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Restroom", "es": "Baño"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Water", "es": "Agua"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Breakfast", "es": "Desayuno"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Lunch", "es": "Almuerzo"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Snack", "es": "Bocadillo / merienda"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Dessert", "es": "Postre"}, {"category": "Vocabulario de cafetería / Café vocabulary", "en": "Takeaway / To go", "es": "Para llevar"}, {"category": "Tour de café / Coffee tour", "en": "Coffee beans", "es": "Granos de café"}, {"category": "Tour de café / Coffee tour", "en": "Coffee plant", "es": "Planta de café"}, {"category": "Tour de café / Coffee tour", "en": "Coffee farm", "es": "Finca de café"}, {"category": "Tour de café / Coffee tour", "en": "Harvest", "es": "Cosecha"}, {"category": "Tour de café / Coffee tour", "en": "Coffee cherry", "es": "Fruto de café"}, {"category": "Tour de café / Coffee tour", "en": "Pulping", "es": "Despulpado"}, {"category": "Tour de café / Coffee tour", "en": "Drying", "es": "Secado"}, {"category": "Tour de café / Coffee tour", "en": "Roasting", "es": "Tostado"}, {"category": "Tour de café / Coffee tour", "en": "Grinding", "es": "Molienda"}, {"category": "Tour de café / Coffee tour", "en": "Brewing", "es": "Preparación"}, {"category": "Tour de café / Coffee tour", "en": "Taste / Flavor", "es": "Sabor"}, {"category": "Tour de café / Coffee tour", "en": "Aroma", "es": "Aroma"}, {"category": "Tour de café / Coffee tour", "en": "Freshly roasted", "es": "Recién tostado"}, {"category": "Tour de café / Coffee tour", "en": "Would you like to try it?", "es": "¿Le gustaría probarlo?"}, {"category": "Tour de café / Coffee tour", "en": "This coffee is locally grown.", "es": "Este café es cultivado localmente."}, {"category": "Tour de café / Coffee tour", "en": "This coffee has a strong aroma.", "es": "Este café tiene un aroma intenso."}, {"category": "Pago y despedida / Payment & farewell", "en": "Cash or card?", "es": "¿Efectivo o tarjeta?"}, {"category": "Pago y despedida / Payment & farewell", "en": "You can pay here.", "es": "Puede pagar aquí."}, {"category": "Pago y despedida / Payment & farewell", "en": "Here is your change.", "es": "Aquí está su vuelto."}, {"category": "Pago y despedida / Payment & farewell", "en": "Thank you for visiting us.", "es": "Gracias por visitarnos."}, {"category": "Pago y despedida / Payment & farewell", "en": "We hope to see you again.", "es": "Esperamos verle nuevamente."}];
+const content = document.getElementById('content');
+const search = document.getElementById('search');
+const category = document.getElementById('category');
+const empty = document.getElementById('empty');
+document.getElementById('totalCount').textContent = DATA.length;
+
+const categories = [...new Set(DATA.map(x=>x.category))];
+categories.forEach(c=>{
+  const o=document.createElement('option'); o.value=c; o.textContent=c; category.appendChild(o);
+});
+
+function speak(text, btn){
+  if(!('speechSynthesis' in window)){
+    alert('Este navegador no permite reproducir audio. / This browser does not support speech playback.');
+    return;
+  }
+  speechSynthesis.cancel();
+  document.querySelectorAll('.listen').forEach(b=>b.classList.remove('playing'));
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang='en-US'; u.rate=.78; u.pitch=1;
+  const voices=speechSynthesis.getVoices();
+  const preferred=voices.find(v=>v.lang && v.lang.toLowerCase().startsWith('en'));
+  if(preferred) u.voice=preferred;
+  btn.classList.add('playing');
+  u.onend=()=>btn.classList.remove('playing');
+  u.onerror=()=>btn.classList.remove('playing');
+  speechSynthesis.speak(u);
+}
+
+function render(){
+  const q=search.value.trim().toLowerCase();
+  const cat=category.value;
+  content.innerHTML='';
+  let shown=0;
+
+  categories.forEach(c=>{
+    if(cat!=='all' && c!==cat) return;
+    const rows=DATA.filter(x=>x.category===c && (!q || x.en.toLowerCase().includes(q) || x.es.toLowerCase().includes(q)));
+    if(!rows.length) return;
+    shown += rows.length;
+
+    const section=document.createElement('section');
+    section.className='section';
+    const head=document.createElement('div');
+    head.className='section-head';
+    head.innerHTML=`<h2>${c}</h2><span class="count">${rows.length} items</span>`;
+    section.appendChild(head);
+
+    const grid=document.createElement('div');
+    grid.className='cards';
+    rows.forEach(x=>{
+      const card=document.createElement('article');
+      card.className='card';
+      const en=document.createElement('div'); en.className='en'; en.textContent=x.en;
+      const es=document.createElement('div'); es.className='es'; es.textContent=x.es;
+      const b=document.createElement('button'); b.className='listen'; b.textContent='🔊 Escuchar / Listen';
+      b.addEventListener('click',()=>speak(x.en,b));
+      card.append(en,es,b);
+      grid.appendChild(card);
+    });
+    section.appendChild(grid);
+    content.appendChild(section);
+  });
+  empty.style.display=shown?'none':'block';
+}
+search.addEventListener('input',render);
+category.addEventListener('change',render);
+render();
+</script>
+</body>
+</html>
